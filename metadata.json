@@ -1,0 +1,7 @@
+{
+  "name": "Vertex Search Engine",
+  "description": "A web application that mimics the Google search interface, powered by the Gemini API with Google Search grounding to provide real-time, source-cited answers.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

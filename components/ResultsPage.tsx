@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { GroundingChunk } from '../types';
 import { useVoiceSearch } from '../hooks/useVoiceSearch';
 import { SearchIcon, MicIcon, SparklesIcon } from './icons';
+import Favicon from './Favicon';
 
 interface ResultsPageProps {
   query: string;
@@ -80,7 +81,7 @@ const Breadcrumbs: React.FC<{ uri: string; title: string; }> = ({ uri, title }) 
     const siteName = titleParts.length > 1 ? titleParts[titleParts.length - 1].trim() : title;
 
     return (
-      <div className="text-sm text-gray-700 dark:text-gray-400 truncate flex items-center mb-1">
+      <div className="inline-flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1 text-sm text-gray-600 dark:text-gray-300 truncate">
         <span className="truncate">vertex</span>
         <span className="mx-1 text-gray-500 flex-shrink-0">{'>'}</span>
         <span className="truncate">{siteName}</span>
@@ -96,7 +97,7 @@ const Breadcrumbs: React.FC<{ uri: string; title: string; }> = ({ uri, title }) 
       url = new URL(`https://${uri}`);
     } catch (e2) {
       console.warn(`Could not parse URL for breadcrumbs: ${uri}`);
-      return <p className="text-sm text-gray-700 dark:text-gray-400 truncate mb-1">{uri}</p>;
+      return <div className="inline-block bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1 text-sm text-gray-600 dark:text-gray-300 truncate">{uri}</div>;
     }
   }
 
@@ -105,7 +106,7 @@ const Breadcrumbs: React.FC<{ uri: string; title: string; }> = ({ uri, title }) 
   const displayParts = [hostname, ...pathSegments];
   
   return (
-    <div className="text-sm text-gray-700 dark:text-gray-400 truncate flex items-center mb-1">
+    <div className="inline-flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1 text-sm text-gray-600 dark:text-gray-300 truncate">
       {displayParts.map((part, index) => (
         <React.Fragment key={index}>
           <span className="truncate">{decodeURIComponent(part)}</span>
@@ -124,7 +125,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   isLoading,
   error,
   onSearch,
-  onNewSearch
+  onNewSearch,
 }) => {
   const [currentQuery, setCurrentQuery] = useState(query);
 
@@ -148,7 +149,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-[#202124]">
       <header className="sticky top-0 bg-white dark:bg-[#202124] border-b border-gray-200 dark:border-gray-700 z-10 p-4">
-        <div className="flex items-center space-x-4 md:space-x-8">
+        <div className="flex items-center space-x-4 md:space-x-6">
           <div onClick={onNewSearch} className="select-none cursor-pointer">
               <img 
                 src="https://upload.wikimedia.org/wikipedia/commons/8/89/Vertexbrowselogo.png" 
@@ -183,11 +184,13 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
               </div>
             </div>
           </form>
+          <div className="flex items-center ml-auto pl-4">
+          </div>
         </div>
         {voiceError && <p className="text-red-500 text-center text-sm mt-2">{voiceError}</p>}
       </header>
-      <main className="flex-grow p-4 md:p-6 lg:p-8 md:pl-20 lg:pl-40">
-        <div className="max-w-3xl">
+      <main className="flex-grow p-4 md:p-6 lg:p-8">
+        <div className="max-w-3xl mx-auto">
           {isLoading && 
             <div className="space-y-4 animate-pulse">
                 <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
@@ -214,8 +217,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
               <div>
                 {sources.map((source, index) => (
                   <div key={index} className="mb-7">
-                    <a href={source.web.uri} className="group">
-                      <Breadcrumbs uri={source.web.uri} title={source.web.title} />
+                    <a href={source.web.uri} className="group block">
+                       <div className="flex items-center mb-1">
+                        <Favicon uri={source.web.uri} />
+                        <Breadcrumbs uri={source.web.uri} title={source.web.title} />
+                      </div>
                       <h3 className="text-xl text-blue-800 dark:text-blue-400 group-hover:underline font-medium">
                         {source.web.title}
                       </h3>

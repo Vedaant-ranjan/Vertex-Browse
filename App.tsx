@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import SearchPage from './components/SearchPage';
 import ResultsPage from './components/ResultsPage';
@@ -69,7 +68,9 @@ const App: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen font-sans">
       {view === 'search' ? (
-        <SearchPage onSearch={handleSearch} />
+        <SearchPage 
+          onSearch={handleSearch} 
+        />
       ) : (
         <ResultsPage
           query={query}

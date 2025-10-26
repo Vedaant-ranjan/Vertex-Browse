@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useVoiceSearch } from '../hooks/useVoiceSearch';
 import { SearchIcon, MicIcon, AppGridIcon } from './icons';
+import Footer from './Footer';
 
 interface SearchPageProps {
   onSearch: (query: string) => void;
@@ -31,14 +32,11 @@ const SearchPage: React.FC<SearchPageProps> = ({ onSearch }) => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-[#202124]">
-      <header className="flex justify-end items-center p-4 text-sm">
-        <a href="#" className="mr-4 hover:underline text-gray-800 dark:text-gray-200">Gmail</a>
-        <a href="#" className="mr-4 hover:underline text-gray-800 dark:text-gray-200">Images</a>
-        <button className="mr-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+      <header className="flex justify-end items-center p-4 text-sm space-x-5">
+        <a href="#" className="hover:underline text-gray-800 dark:text-gray-200">Gmail</a>
+        <a href="#" className="hover:underline text-gray-800 dark:text-gray-200">Images</a>
+        <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Vertex apps">
           <AppGridIcon />
-        </button>
-        <button className="bg-[#1a73e8] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#1b66c9] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-          Sign in
         </button>
       </header>
       
@@ -96,6 +94,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ onSearch }) => {
         </form>
       </main>
       
+      <Footer />
     </div>
   );
 };
